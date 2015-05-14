@@ -16,12 +16,19 @@ var Dropzone = React.createClass({
   },
 
   onDragLeave: function(e) {
-    this.setState({
-      isDragActive: false
-    });
+    var rect = e.target.getBoundingClientRect();
+    // Checks that mouse is not an a child element of the dropzone
+    if ( rect.left > e.clientX ||
+      rect.right < e.clientX ||
+      rect.top < e.clientY ||
+      rect.bottom > e.clientY ) {
+      this.setState({
+        isDragActive: false
+      });
 
-    if (this.props.onDragLeave){
-      this.props.onDragLeave()
+      if (this.props.onDragLeave) {
+        this.props.onDragLeave()
+      }
     }
   },
 
